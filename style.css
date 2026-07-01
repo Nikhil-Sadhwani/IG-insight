@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #000;
+    background-color: #0c0f14;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,7 +20,7 @@ body {
     max-width: 393px;
     height: 100vh;
     max-height: 850px;
-    background-color: #0d0d0d;
+    background-color: #0c0f14;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
@@ -57,7 +57,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 12px 16px;
-    background-color: #0d0d0d;
+    background-color: #0c0f14;
     height: 55px;
 }
 
@@ -198,7 +198,7 @@ body {
     position: sticky;
     top: 55px; /* Exact height of the header so it meets perfectly */
     z-index: 20;
-    background-color: #0d0d0d;
+    background-color: #0c0f14;
     border-bottom: 1px solid #2a2a2a; 
 }
 
@@ -280,7 +280,7 @@ body {
 }
 
 .stat-card {
-    background: #1a1a1a;
+    background: #25282d;
     padding: 12px;
     border-radius: 8px;
     display: flex;
@@ -330,7 +330,7 @@ body {
 }
 
 .filter-btn.active {
-    background: #2a2a2a;
+    background: #25282d;
     border-color: #2a2a2a;
     color: #fff;
 }
@@ -383,7 +383,7 @@ canvas {
 .insight-icon.insight-circle-bg {
     width: 40px;       /* Increased to 40px to comfortably fit the new spacing */
     height: 40px;
-    background-color: #1a1a1a;
+    background-color: #25282d;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -488,7 +488,7 @@ canvas {
 }
 
 .sub-btn.active {
-    background: #282828;
+    background: #25282d;
     border-color: #282828;
     color: #fff;
 }
