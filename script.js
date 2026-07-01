@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- 1. ADDED: DRAW BACKGROUND GRID LINES (Copied from second graph) ---
         ctx.strokeStyle = '#2a2a2a'; // Faint grey lines
         ctx.lineWidth = 0.5;
-        ctx.fillStyle = '#888';
+        ctx.fillStyle = '#a8abb2';
         ctx.font = '10px sans-serif';
         ctx.textAlign = 'right';
         ctx.textBaseline = 'middle'; // Centers numbers perfectly on lines
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.stroke();
 
         // --- 3. DRAW X-AXIS LABELS (Using exact pixel spacing) ---
-        ctx.fillStyle = '#888';
+        ctx.fillStyle = '#a8abb2';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.font = '10px sans-serif';
@@ -237,7 +237,7 @@ if (watchSectionCanvas) {
     // --- 1. Draw Grid Lines & Y-Axis Labels ---
     ctx.strokeStyle = '#2a2a2a'; // Faint grey lines
     ctx.lineWidth = 0.5;
-    ctx.fillStyle = '#888';
+    ctx.fillStyle = '#a8abb2';
     ctx.font = '10px sans-serif';
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
@@ -340,7 +340,7 @@ if (watchSectionCanvas) {
         // --- 1. Draw Y-Axis Grid Lines & Labels (50%, 25%, 0) ---
         ctx.strokeStyle = '#2a2a2a';
         ctx.lineWidth = 0.5;
-        ctx.fillStyle = '#888';
+        ctx.fillStyle = '#a8abb2';
         ctx.font = '10px sans-serif';
         ctx.textAlign = 'right';
         ctx.textBaseline = 'middle';
