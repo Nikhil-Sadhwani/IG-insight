@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Reel Insights</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- SINGLE SCROLLABLE CONTAINER -->
+        <div class="scroll-container">
+            
+            <!-- 1. HEADER (Sticks to top) -->
+            <header class="header" id="mainHeader">
+                <div class="header-left">
+                    <button class="icon-btn back-btn">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                    </button>
+                    <h1 class="title">Reel insights</h1>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </button>
+                    <button class="icon-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <circle cx="12" cy="12" r="1.5"></circle>
+                            <circle cx="19" cy="12" r="1.5"></circle>
+                            <circle cx="5" cy="12" r="1.5"></circle>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- 2. REEL PREVIEW & ACTIONS (Scrolls completely out of the way) -->
+            <div class="reel-section">
+                <div class="reel-preview">
+                    <div class="video-thumbnail">
+                        <div class="thumbnail-content">
+                            <div class="twitch-badge">TWITCH.TV/MCQUEENNLIVE</div>
+                            <div class="question-box">OVER?</div>
+                        </div>
+                    </div>
+                    
+                    <div class="reel-actions">
+                        <div class="action-item"><div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div><span class="action-label">15</span></div>
+                        <div class="action-item"><div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><span class="action-label">0</span></div>
+                        <div class="action-item"><div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><span class="action-label">0</span></div>
+                        <div class="action-item"><div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 2l-6 6"/><circle cx="10" cy="12" r="2"/><path d="M12 22l-2-2 6-6-6-6"/></svg></div><span class="action-label">3</span></div>
+                        <div class="action-item"><div class="icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div><span class="action-label">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. TABS (Sticky, stops exactly 55px down, right below header) -->
+            <div class="tabs-wrapper">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="overview">Overview</button>
+                    <button class="tab-btn" data-tab="engagement">Engagement</button>
+                    <button class="tab-btn" data-tab="audience">Audience</button>
+                </div>
+            </div>
+
+            <!-- 4. DATA CONTENT -->
+            <div class="data-container">
+                <!-- Overview Tab -->
+                <div id="overview" class="tab-pane active">
+                    <div class="section-title">Summary <span class="info-icon">ⓘ</span></div>
+                    <div class="grid-2">
+                        <div class="stat-card"><span class="stat-val" id="views-val">2,288</span><span class="stat-label">Views</span></div>
+                        <div class="stat-card"><span class="stat-val" id="reach-val">1,051</span><span class="stat-label">Accounts reached</span></div>
+                        <div class="stat-card"><span class="stat-val" id="watchtime-val">9s</span><span class="stat-label">Average watch time</span></div>
+                        <div class="stat-card"><span class="stat-val" id="follows-val">0</span><span class="stat-label">Follows</span></div>
+                    </div>
+
+                    <div class="chart-section">
+                        <div class="chart-header">Views over time <span class="info-icon">ⓘ</span></div>
+                        <div class="time-filters">
+                            <button class="filter-btn active">All</button>
+                            <button class="filter-btn">Followers</button>
+                            <button class="filter-btn">Non-followers</button>
+                        </div>
+                        <div class="canvas-wrapper">
+                            <canvas id="viewsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="insights-list">
+                        <div class="section-title">What affects your views <span class="info-icon">ⓘ</span></div>
+                        <div class="subtitle">Rates are listed in order of importance to reach.</div>
+                        <div class="insight-item"><div class="insight-icon">⏱️</div><span class="insight-label">Skip rate</span><span class="insight-val">41.1%</span></div>
+                        <div class="insight-item"><div class="insight-icon">✈️</div><span class="insight-label">Share rate</span><span class="insight-val">0.2%</span></div>
+                        <div class="insight-item"><div class="insight-icon">❤️</div><span class="insight-label">Like rate</span><span class="insight-val">1.1%</span></div>
+                        <div class="insight-item"><div class="insight-icon">🔖</div><span class="insight-label">Save rate</span><span class="insight-val">0.2%</span></div>
+                        <div class="insight-item"><div class="insight-icon">🔄</div><span class="insight-label">Repost rate</span><span class="insight-val">0.0%</span></div>
+                    </div>
+                </div>
+
+                <!-- Engagement Tab -->
+                <div id="engagement" class="tab-pane">
+                    <div class="section-title">Actions after viewing <span class="info-icon">ⓘ</span></div>
+                    <div class="actions-list">
+                        <div class="action-row"><span>Profile visits</span><span class="val">10</span></div>
+                        <div class="action-row"><span>Bio link taps</span><span class="val">2</span></div>
+                        <div class="action-row"><span>Follows</span><span class="val">0</span></div>
+                    </div>
+
+                    <div class="section-title">Interactions <span class="info-icon">ⓘ</span></div>
+                    <div class="actions-list">
+                        <div class="action-row"><span>Likes</span><span class="val">15</span></div>
+                        <div class="action-row"><span>Comments</span><span class="val">0</span></div>
+                        <div class="action-row"><span>Reposts</span><span class="val">0</span></div>
+                        <div class="action-row"><span>Shares</span><span class="val">3</span></div>
+                        <div class="action-row"><span>Saves</span><span class="val">3</span></div>
+                    </div>
+                    
+                    <div class="insights-list">
+                        <div class="insight-item"><div class="insight-icon">🔄</div><span class="insight-label">Repost rate</span><span class="insight-val">0.0%</span></div>
+                        <div class="insight-item"><div class="insight-icon">💬</div><span class="insight-label">Comment rate</span><span class="insight-val">0.0%</span></div>
+                    </div>
+
+                    <div class="chart-section">
+                        <div class="chart-header">How long people watched your reel <span class="info-icon">ⓘ</span></div>
+                        <div class="canvas-wrapper">
+                            <canvas id="watchChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-section">
+                        <div class="chart-header">When people liked your reel <span class="info-icon">ⓘ</span></div>
+                        <div class="canvas-wrapper">
+                            <canvas id="likeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audience Tab -->
+                <div id="audience" class="tab-pane">
+                    <div class="section-title">Who viewed your reel <span class="info-icon">ⓘ</span></div>
+                    <div class="progress-group">
+                        <div class="progress-item"><span class="label">Followers</span><div class="bar-track"><div class="bar-fill" style="width: 0%;"></div></div><span class="val">0%</span></div>
+                        <div class="progress-item"><span class="label">Non-followers</span><div class="bar-track"><div class="bar-fill" style="width: 100%; background: linear-gradient(90deg, #8a3ffc, #b134e6);"></div></div><span class="val">100%</span></div>
+                    </div>
+
+                    <div class="section-title">Audience details <span class="info-icon">ⓘ</span></div>
+                    <div class="sub-tabs">
+                        <button class="sub-btn active" data-sub="age">Age</button>
+                        <button class="sub-btn" data-sub="country">Country</button>
+                        <button class="sub-btn" data-sub="gender">Gender</button>
+                    </div>
+
+                    <!-- Age -->
+                    <div id="sub-age" class="sub-pane active">
+                        <div class="progress-group">
+                            <div class="progress-item"><span class="label">13-17</span><div class="bar-track"><div class="bar-fill" style="width: 5.0%;"></div></div><span class="val">5.0%</span></div>
+                            <div class="progress-item"><span class="label">18-24</span><div class="bar-track"><div class="bar-fill" style="width: 40.7%;"></div></div><span class="val">40.7%</span></div>
+                            <div class="progress-item"><span class="label">25-34</span><div class="bar-track"><div class="bar-fill" style="width: 42.0%;"></div></div><span class="val">42.0%</span></div>
+                            <div class="progress-item"><span class="label">35-44</span><div class="bar-track"><div class="bar-fill" style="width: 7.6%;"></div></div><span class="val">7.6%</span></div>
+                            <div class="progress-item"><span class="label">45-54</span><div class="bar-track"><div class="bar-fill" style="width: 3.2%;"></div></div><span class="val">3.2%</span></div>
+                            <div class="progress-item"><span class="label">55-64</span><div class="bar-track"><div class="bar-fill" style="width: 1.1%;"></div></div><span class="val">1.1%</span></div>
+                            <div class="progress-item"><span class="label">65+</span><div class="bar-track"><div class="bar-fill" style="width: 0.3%;"></div></div><span class="val">0.3%</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Country -->
+                    <div id="sub-country" class="sub-pane">
+                        <div class="progress-group">
+                            <div class="progress-item"><span class="label">India</span><div class="bar-track"><div class="bar-fill" style="width: 29.6%;"></div></div><span class="val">29.6%</span></div>
+                            <div class="progress-item"><span class="label">Brazil</span><div class="bar-track"><div class="bar-fill" style="width: 14.1%;"></div></div><span class="val">14.1%</span></div>
+                            <div class="progress-item"><span class="label">United States</span><div class="bar-track"><div class="bar-fill" style="width: 10.4%;"></div></div><span class="val">10.4%</span></div>
+                            <div class="progress-item"><span class="label">Türkiye</span><div class="bar-track"><div class="bar-fill" style="width: 4.6%;"></div></div><span class="val">4.6%</span></div>
+                            <div class="progress-item"><span class="label">Germany</span><div class="bar-track"><div class="bar-fill" style="width: 2.7%;"></div></div><span class="val">2.7%</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Gender -->
+                    <div id="sub-gender" class="sub-pane">
+                        <div class="progress-group">
+                            <div class="progress-item"><span class="label">Men</span><div class="bar-track"><div class="bar-fill" style="width: 97.4%;"></div></div><span class="val">97.4%</span></div>
+                            <div class="progress-item"><span class="label">Women</span><div class="bar-track"><div class="bar-fill" style="width: 2.6%;"></div></div><span class="val">2.6%</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
