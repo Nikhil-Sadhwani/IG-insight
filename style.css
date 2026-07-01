@@ -149,7 +149,7 @@ body {
 .reel-actions {
     display: flex;
     justify-content: center;
-    gap: 24px;
+    gap: 45px;
     width: 100%;
     padding: 0 12px;
     margin-bottom: 8px;
@@ -211,7 +211,7 @@ body {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 20px;
+    width: 100px;
     height: 2px;
     background: #fff;
 }
@@ -242,7 +242,7 @@ body {
 
 .info-icon {
     font-size: 12px;
-    color: #666;
+    color: #f5f5f5;
     cursor: pointer;
 }
 
@@ -336,13 +336,14 @@ canvas {
     display: flex;
     align-items: center;
     padding: 12px 0;
-    border-bottom: 1px solid #1f1f1f;
+    /* border-bottom: 1px solid #1f1f1f; */
 }
 
 .insight-icon {
     font-size: 20px;
     width: 32px;
     margin-right: 12px;
+    margin-top: 6px;
     opacity: 0.8;
 }
 
@@ -357,6 +358,25 @@ canvas {
     font-weight: 500;
 }
 
+/* --- CIRCLE BACKGROUND FOR ICONS --- */
+.insight-icon.insight-circle-bg {
+    width: 40px;       /* Increased to 40px to comfortably fit the new spacing */
+    height: 40px;
+    background-color: #1a1a1a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 14px;
+    flex-shrink: 0;
+}
+
+.insight-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Engagement lists */
 .actions-list {
     margin-bottom: 20px;
@@ -368,31 +388,43 @@ canvas {
     padding: 10px 0;
     font-size: 14px;
     color: #ddd;
-    border-bottom: 1px solid #1f1f1f;
+    border-bottom: 0px solid #1f1f1f;
 }
 
 .action-row .val {
     font-weight: 500;
 }
 
-/* Progress Bars (Audience) */
+/* Progress Groups */
 .progress-group {
     margin-top: 8px;
 }
 
+/* Vertical column layout: Label on top left, Bar and Value on bottom row */
 .progress-item {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Pushes the label to the left */
+    gap: 4px; /* Space between the text and the bar */
+    padding: 12px 0;
+}
+
+/* Updating label size and weight */
+.progress-item .label {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 2px;
+}
+
+/* Row container for the bar and the % value */
+.bar-row {
+    display: flex;
     align-items: center;
-    padding: 10px 0;
+    width: 100%;
     gap: 12px;
 }
 
-.progress-item .label {
-    width: 70px;
-    font-size: 14px;
-    color: #ccc;
-}
-
+/* The Track Bar */
 .bar-track {
     flex: 1;
     height: 6px;
@@ -407,11 +439,13 @@ canvas {
     border-radius: 4px;
 }
 
+/* The % Value */
 .progress-item .val {
-    width: 50px;
-    text-align: right;
     font-size: 13px;
     font-weight: 600;
+    color: #fff;
+    min-width: 35px; /* Ensures numbers stay aligned */
+    text-align: right;
 }
 
 /* Sub-tabs (Age, Country, Gender) */
@@ -445,6 +479,197 @@ canvas {
 .sub-pane.active {
     display: block;
 }
+
+/* --- TOP SOURCES OF VIEWS --- */
+.sources-section {
+    margin-top: 24px;
+    padding: 0 4px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.sources-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.info-icon {
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+}
+
+.sources-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 12px; /* Reduced slightly to bring Boost closer */
+}
+
+.source-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.source-label {
+    font-size: 14px;
+    color: #ddd;
+    font-weight: 400;
+}
+
+.source-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+}
+
+.source-track {
+    flex: 1;
+    height: 8px;
+    background: #2a2a2a;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.source-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f54394, #d63881);
+    border-radius: 4px;
+}
+
+.source-val {
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    min-width: 45px;
+    text-align: right;
+}
+
+/* --- BOOST THIS REEL (New layout to match screenshot) --- */
+.boost-item {
+    border-top: 1px solid #1f1f1f; /* Add separator line on top */
+    padding-top: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.boost-item:hover {
+    opacity: 0.8;
+}
+
+.boost-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.boost-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.boost-icon {
+    color: #fff;
+}
+
+.boost-text {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.chevron-icon {
+    margin-left: auto;
+}
+
+/* --- HOW LONG PEOPLE WATCHED SECTION --- */
+.watch-section {
+    margin-top: 24px;
+    padding: 0 4px;
+}
+
+.watch-thumbnail-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0 24px 0;
+}
+
+.watch-thumbnail {
+    width: 100px;
+    height: 170px;
+    background: #141414;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.watch-thumb-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.twitch-badge {
+    background: #9147ff;
+    color: #fff;
+    font-size: 8px;
+    padding: 4px 6px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+.question-box {
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+.watch-chart-wrapper {
+    background: transparent;
+    height: 130px;
+    width: 100%;
+    position: relative;
+}
+
+.watch-chart-wrapper canvas {
+    width: 100%;
+    height: 100%;
+}
+
+
 
 /* Responsive Fixes */
 @media (max-width: 420px) {

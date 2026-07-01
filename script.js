@@ -174,4 +174,107 @@ document.addEventListener('DOMContentLoaded', () => {
             drawLineChart(ctx, likeCanvas.width, likeCanvas.height, likeData.points, likeData.labels, likeData.maxScale);
         }
     });
+
+
+    // --- GRAPH: HOW LONG PEOPLE WATCHED ---
+const watchSectionCanvas = document.getElementById('watchChartCanvas');
+
+if (watchSectionCanvas) {
+    const rect = watchSectionCanvas.parentElement.getBoundingClientRect();
+    watchSectionCanvas.width = rect.width || 350;
+    watchSectionCanvas.height = 130;
+    
+    const ctx = watchSectionCanvas.getContext('2d');
+    const w = watchSectionCanvas.width;
+    const h = watchSectionCanvas.height;
+    
+    // Margins
+    const padTop = 20;
+    const padBottom = 25;
+    const padLeft = 35;
+    const padRight = 15;
+    const chartHeight = h - padTop - padBottom;
+    const chartWidth = w - padLeft - padRight;
+
+    ctx.clearRect(0, 0, w, h);
+
+    // --- 1. Draw Grid Lines & Y-Axis Labels ---
+    ctx.strokeStyle = '#2a2a2a'; // Faint grey lines
+    ctx.lineWidth = 0.5;
+    ctx.fillStyle = '#888';
+    ctx.font = '10px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+
+    // 100% (Top)
+    ctx.beginPath();
+    ctx.moveTo(padLeft, padTop);
+    ctx.lineTo(w - padRight, padTop);
+    ctx.stroke();
+    ctx.fillText('100%', padLeft - 6, padTop);
+
+    // 50% (Middle)
+    const yMid = padTop + (chartHeight / 2);
+    ctx.beginPath();
+    ctx.moveTo(padLeft, yMid);
+    ctx.lineTo(w - padRight, yMid);
+    ctx.stroke();
+    ctx.fillText('50%', padLeft - 6, yMid);
+
+    // 0 (Bottom)
+    const yZero = padTop + chartHeight;
+    ctx.beginPath();
+    ctx.moveTo(padLeft, yZero);
+    ctx.lineTo(w - padRight, yZero);
+    ctx.stroke();
+    ctx.fillText('0', padLeft - 6, yZero);
+
+    // --- 2. Draw X-Axis Labels ---
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText('0:00', padLeft, yZero + 6);
+    ctx.fillText('0:15', w - padRight, yZero + 6);
+
+    // --- 3. Draw Data Line (Mimicking the exact drop-off curve) ---
+    // Data points roughly matching screenshot (100% drops to ~40% then slowly to ~30%)
+    const dataPoints = [
+        {x: 0, y: 95},    // Start at 95%
+        {x: 0.15, y: 85}, // Quick drop
+        {x: 0.35, y: 55}, // Major drop
+        {x: 0.50, y: 45}, 
+        {x: 0.70, y: 40},
+        {x: 0.90, y: 38},
+        {x: 1.0, y: 35}   // End at ~35%
+    ];
+
+    ctx.beginPath();
+    ctx.strokeStyle = '#f54394'; // Bright pink
+    ctx.lineWidth = 3.5;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+
+    // Loop through points and draw smooth curve
+    for (let i = 0; i < dataPoints.length; i++) {
+        // Map X (0 to 1) to chartWidth
+        const x = padLeft + (dataPoints[i].x * chartWidth);
+        // Map Y (percentage) to chartHeight (100% = top, 0% = bottom)
+        const y = padTop + chartHeight - ((dataPoints[i].y / 100) * chartHeight);
+        
+        if (i === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            // Calculate control points for a smooth bezier curve
+            const prevX = padLeft + (dataPoints[i-1].x * chartWidth);
+            const prevY = padTop + chartHeight - ((dataPoints[i-1].y / 100) * chartHeight);
+            
+            const cp1x = prevX + (x - prevX) / 2;
+            const cp1y = prevY;
+            const cp2x = prevX + (x - prevX) / 2;
+            const cp2y = y;
+            
+            ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+        }
+    }
+    ctx.stroke();
+}
 });
