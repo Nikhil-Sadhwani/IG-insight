@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const padTop = 10;
         const padBottom = 20;
-        const padLeft = 30;
+        const padLeft = 35; // Extra padding so 3T doesn't get cut off
         const padRight = 10;
         const chartHeight = h - padTop - padBottom;
         const chartWidth = w - padLeft - padRight;
@@ -60,15 +60,38 @@ document.addEventListener('DOMContentLoaded', () => {
             yMid = 1000;
         }
 
+        // --- 1. ADDED: DRAW BACKGROUND GRID LINES (Copied from second graph) ---
+        ctx.strokeStyle = '#2a2a2a'; // Faint grey lines
+        ctx.lineWidth = 0.5;
         ctx.fillStyle = '#888';
         ctx.font = '10px sans-serif';
         ctx.textAlign = 'right';
-        ctx.fillText('0', padLeft - 4, padTop + chartHeight);
-        ctx.fillText(formatThousandLabel(yMid), padLeft - 4, padTop + (chartHeight * 0.5) + 4);
-        ctx.fillText(formatThousandLabel(yMax), padLeft - 4, padTop + 4);
+        ctx.textBaseline = 'middle'; // Centers numbers perfectly on lines
 
+        // 0 (Bottom line)
         ctx.beginPath();
-        ctx.strokeStyle = '#e1306c'; 
+        ctx.moveTo(padLeft, padTop + chartHeight);
+        ctx.lineTo(w - padRight, padTop + chartHeight);
+        ctx.stroke();
+        ctx.fillText('0', padLeft - 6, padTop + chartHeight);
+
+        // Mid (50% or 1.5T line)
+        ctx.beginPath();
+        ctx.moveTo(padLeft, padTop + (chartHeight * 0.5));
+        ctx.lineTo(w - padRight, padTop + (chartHeight * 0.5));
+        ctx.stroke();
+        ctx.fillText(formatThousandLabel(yMid), padLeft - 6, padTop + (chartHeight * 0.5));
+
+        // Max (100% or 3T line)
+        ctx.beginPath();
+        ctx.moveTo(padLeft, padTop);
+        ctx.lineTo(w - padRight, padTop);
+        ctx.stroke();
+        ctx.fillText(formatThousandLabel(yMax), padLeft - 6, padTop);
+
+        // --- 2. DRAW THE PINK DATA LINE (Kept 100% identical) ---
+        ctx.beginPath();
+        ctx.strokeStyle = '#f54394'; 
         ctx.lineWidth = 2;
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
@@ -96,24 +119,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         ctx.stroke();
 
+        // --- 3. DRAW X-AXIS LABELS (Using exact pixel spacing) ---
         ctx.fillStyle = '#888';
         ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
         ctx.font = '10px sans-serif';
-        const labelStep = Math.max(1, Math.floor(dataPoints.length / 3));
-        for (let i = 0; i < dataPoints.length; i += labelStep) {
-            const x = padLeft + i * step;
-            ctx.fillText(labels[i] || '', x, padTop + chartHeight + 14);
-        }
-        const lastIdx = dataPoints.length - 1;
-        if (lastIdx % labelStep !== 0) {
-            ctx.fillText(labels[lastIdx], padLeft + lastIdx * step, padTop + chartHeight + 14);
+        
+        // Loop through data points to draw labels
+        for (let i = 0; i < dataPoints.length; i++) {
+            const label = labels[i] || '';
+            if (label) {
+                // MANUAL PIXEL OFFSETS. Adjust these numbers to move the labels!
+                // Currently set for: 29 Jun at 100px, 30 Jun at 240px, 1 Jul at 350px
+                let x;
+                if (label === '29 Jun') x = padLeft + 25; 
+                else if (label === '30 Jun') x = padLeft + 150;
+                else if (label === '1 Jul') x = padLeft + 290;
+                else x = padLeft + 0; // Fallback (shouldn't be used)
+
+                // Draw the date
+                ctx.fillText(label, x, padTop + chartHeight + 6);
+            }
         }
     };
 
+    // --- UPDATED DATA: 3 specific dates ---
     const viewsData = {
-        points: [200, 400, 600, 900, 1100, 1450, 1850, 2100, 2288],
-        labels: ['29 Jun', '', '', '', '30 Jun', '', '', '', '1 Jul'],
-        maxScale: 2288
+        // We add 2 blank labels between dates to keep the graph smooth, but only show the 3 dates
+        points: [0, 1146, 1300, 1600, 1700, 1832, 2150, 2200, 2301],
+        labels: ['','29 Jun', '', '',  '30 Jun', '','', '1 Jul'],
+        maxScale: 2800 // Triggers the 3T scale
     };
 
     const watchData = {
@@ -176,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+
     // --- GRAPH: HOW LONG PEOPLE WATCHED ---
 const watchSectionCanvas = document.getElementById('watchChartCanvas');
 
@@ -232,7 +268,7 @@ if (watchSectionCanvas) {
     // --- 2. Draw X-Axis Labels ---
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
-    ctx.fillText('0:00', padLeft, yZero + 6);
+    ctx.fillText('0:00', padLeft + 15, yZero + 6);
     ctx.fillText('0:15', w - padRight, yZero + 6);
 
     // --- 3. Draw Data Line (Mimicking the exact drop-off curve) ---
@@ -277,4 +313,103 @@ if (watchSectionCanvas) {
     }
     ctx.stroke();
 }
+
+
+    // --- NEW GRAPH: WHEN PEOPLE LIKED YOUR REEL ---
+    const likeSectionCanvas = document.getElementById('likeChartCanvas');
+
+    if (likeSectionCanvas) {
+        const rect = likeSectionCanvas.parentElement.getBoundingClientRect();
+        likeSectionCanvas.width = rect.width || 350;
+        likeSectionCanvas.height = 120;
+        
+        const ctx = likeSectionCanvas.getContext('2d');
+        const w = likeSectionCanvas.width;
+        const h = likeSectionCanvas.height;
+        
+        // Margins
+        const padTop = 20;
+        const padBottom = 25;
+        const padLeft = 35;
+        const padRight = 15;
+        const chartHeight = h - padTop - padBottom;
+        const chartWidth = w - padLeft - padRight;
+
+        ctx.clearRect(0, 0, w, h);
+
+        // --- 1. Draw Y-Axis Grid Lines & Labels (50%, 25%, 0) ---
+        ctx.strokeStyle = '#2a2a2a';
+        ctx.lineWidth = 0.5;
+        ctx.fillStyle = '#888';
+        ctx.font = '10px sans-serif';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+
+        // 50% (Top)
+        ctx.beginPath();
+        ctx.moveTo(padLeft, padTop);
+        ctx.lineTo(w - padRight, padTop);
+        ctx.stroke();
+        ctx.fillText('50%', padLeft - 6, padTop);
+
+        // 25% (Middle)
+        const yMid = padTop + (chartHeight / 2);
+        ctx.beginPath();
+        ctx.moveTo(padLeft, yMid);
+        ctx.lineTo(w - padRight, yMid);
+        ctx.stroke();
+        ctx.fillText('25%', padLeft - 6, yMid);
+
+        // 0 (Bottom)
+        const yZero = padTop + chartHeight;
+        ctx.beginPath();
+        ctx.moveTo(padLeft, yZero);
+        ctx.lineTo(w - padRight, yZero);
+        ctx.stroke();
+        ctx.fillText('0', padLeft - 6, yZero);
+
+        // --- 2. Draw X-Axis Labels ---
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.fillText('0:00', padLeft + 15, yZero + 6);
+        ctx.fillText('0:15', w - padRight, yZero + 6);
+
+        // --- 3. Draw Data Line (Flat, slight dip, then huge spike) ---
+        const dataPoints = [
+            {x: 0, y: 2},    // Start low
+            {x: 0.2, y: 2},  // Stay flat
+            {x: 0.4, y: 1},  // Tiny dip
+            {x: 0.5, y: 2},  // Tiny recover
+            {x: 0.6, y: 2},  // Flat
+            {x: 0.85, y: 2}, // Flat
+            {x: 0.95, y: 20},// Sharp spike starts
+            {x: 1.0, y: 45}  // Massive spike at end
+        ];
+
+        ctx.beginPath();
+        ctx.strokeStyle = '#f54394';
+        ctx.lineWidth = 3.5;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+
+        for (let i = 0; i < dataPoints.length; i++) {
+            const x = padLeft + (dataPoints[i].x * chartWidth);
+            const y = padTop + chartHeight - ((dataPoints[i].y / 50) * chartHeight);
+            
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                const prevX = padLeft + (dataPoints[i-1].x * chartWidth);
+                const prevY = padTop + chartHeight - ((dataPoints[i-1].y / 50) * chartHeight);
+                
+                const cp1x = prevX + (x - prevX) / 2;
+                const cp1y = prevY;
+                const cp2x = prevX + (x - prevX) / 2;
+                const cp2y = y;
+                
+                ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+            }
+        }
+        ctx.stroke();
+    }
 });

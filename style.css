@@ -146,32 +146,52 @@ body {
     display: inline-block;
 }
 
+/* Reel Actions Row */
 .reel-actions {
     display: flex;
     justify-content: center;
-    gap: 45px;
+    align-items: flex-start;
+    gap: 40px; /* Space between icons horizontally */
     width: 100%;
     padding: 0 12px;
-    margin-bottom: 8px;
+    margin-top: 8px;
+    margin-bottom: 4px;
 }
 
+/* Individual items */
 .action-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 1px; /* <--- CHANGED THIS! This is the space between icon and number */
 }
 
+/* Icon wrapper */
 .icon-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 28px;
+    width: 28px;
 }
 
-.action-label {
-    font-size: 12px;
-    color: #fff;
+/* Forces images to fit perfectly */
+.icon-wrap img {
+    /* max-width: 100%;
+    max-height: 100%; */
+    object-fit: contain;
+    display: block;
 }
+
+/* The numbers below */
+.action-label {
+    font-size: 13px;
+    font-weight: 400;
+    color: #ffffff;
+    margin-top: 0px; /* Removed the extra margin I added earlier to keep it tight */
+}
+
+
 
 /* --- 3. TABS (Sticks EXACTLY 55px down, right below the header) --- */
 .tabs-wrapper {
@@ -276,6 +296,7 @@ body {
 .stat-label {
     font-size: 12px;
     color: #aaa;
+    margin-bottom: 4px;
 }
 
 /* Charts */
@@ -492,6 +513,16 @@ canvas {
     gap: 6px;
     margin-bottom: 16px;
 }
+.section-header-for-another-cover {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+.section-header-for-engagement-cover {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+}
 
 .sources-title {
     font-size: 15px;
@@ -501,7 +532,8 @@ canvas {
 
 .info-icon {
     font-size: 14px;
-    color: #666;
+    margin-left: 4px;
+    color: #ffffff;
     cursor: pointer;
 }
 
@@ -555,7 +587,6 @@ canvas {
 
 /* --- BOOST THIS REEL (New layout to match screenshot) --- */
 .boost-item {
-    border-top: 1px solid #1f1f1f; /* Add separator line on top */
     padding-top: 16px;
     cursor: pointer;
     transition: opacity 0.2s ease;
@@ -575,7 +606,6 @@ canvas {
 .boost-left {
     display: flex;
     align-items: center;
-    gap: 12px;
 }
 
 .boost-icon {
@@ -605,30 +635,55 @@ canvas {
 }
 
 .watch-thumbnail {
+    position: relative; /* CRUCIAL: This makes sure the overlay sits ON TOP of the image */
     width: 100px;
     height: 170px;
     background: #141414;
     border-radius: 8px;
-    position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+/* 1. The Overlay (Strictly no background) */
 .play-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
+    z-index: 5;
+    
+    /* Make sure background is NOTHING */
+    background: transparent !important; 
+    background-color: transparent !important;
+    
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 5;
+    pointer-events: none;
+    width: 60px; /* Give it a slight defined area to avoid clipping */
+    height: 60px;
+}
+
+/* 2. The Play Button Image */
+.play-icon-img {
+    width: 22px;      
+    height: 22px;
+    object-fit: contain;
+    display: block;
+    
+    /* Turn the black icon to white */
+    filter: invert(1) drop-shadow(0 0 2px rgba(0,0,0,0.5));
+    opacity: 0.95;
+}
+
+/* 4. The Background Cover Image */
+.cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .watch-thumb-content {
@@ -669,7 +724,79 @@ canvas {
     height: 100%;
 }
 
+/* NEW: Styles for the cover image inside thumbnails */
+.cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the box perfectly without distortion */
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
 
+/* IMPORTANT: Ensure the play overlay stays ON TOP of the new image */
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5; /* This must be higher than the image's z-index: 1 */
+}
+
+
+/* Size constraint for the Boost image */
+.boost-icon-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain; /* Ensures your image doesn't stretch */
+    display: block;
+}
+
+/* --- NEW SECTION: WHEN PEOPLE LIKED YOUR REEL --- */
+.likes-section {
+    margin-top: 24px;
+    padding: 0 4px;
+}
+
+.likes-thumbnail-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0 24px 0;
+}
+
+.likes-thumbnail {
+    width: 100px;
+    height: 170px;
+    background: #141414;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.likes-chart-wrapper {
+    background: transparent;
+    height: 120px;
+    width: 100%;
+    position: relative;
+    margin-top: 8px;
+}
+
+.likes-chart-wrapper canvas {
+    width: 100%;
+    height: 100%;
+}
 
 /* Responsive Fixes */
 @media (max-width: 420px) {
