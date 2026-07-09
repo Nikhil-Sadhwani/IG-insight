@@ -814,6 +814,26 @@ canvas {
     scrollbar-width: none;  /* Firefox */
 }
 
+/* --- DISABLE BLUE TAP HIGHLIGHT ON MOBILE --- */
+button, 
+.icon-btn,
+.tab-btn,
+.sub-btn,
+.filter-btn,
+.boost-item {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Also remove focus outlines for better mobile UX */
+button:focus,
+.icon-btn:focus,
+.tab-btn:focus,
+.sub-btn:focus,
+.filter-btn:focus,
+.boost-item:focus {
+    outline: none;
+}
+
 /* Responsive Fixes */
 @media (max-width: 420px) {
     .app-container {

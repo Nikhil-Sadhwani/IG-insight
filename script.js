@@ -130,11 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const label = labels[i] || '';
             if (label) {
                 // MANUAL PIXEL OFFSETS. Adjust these numbers to move the labels!
-                // Currently set for: 29 Jun at 100px, 30 Jun at 240px, 1 Jul at 350px
+                // Currently set for: 0 at 100px, 12h at 240px, 24h at 350px
                 let x;
-                if (label === '29 Jun') x = padLeft + 25; 
-                else if (label === '30 Jun') x = padLeft + 150;
-                else if (label === '1 Jul') x = padLeft + 290;
+                if (label === '0') x = padLeft + 25; 
+                else if (label === '12h') x = padLeft + 150;
+                else if (label === '24h') x = padLeft + 290;
                 else x = padLeft + 0; // Fallback (shouldn't be used)
 
                 // Draw the date
@@ -147,19 +147,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewsData = {
         // We add 2 blank labels between dates to keep the graph smooth, but only show the 3 dates
         points: [0, 1146, 1300, 1600, 1700, 1832, 2150, 2200, 2301],
-        labels: ['','29 Jun', '', '',  '30 Jun', '','', '1 Jul'],
+        labels: ['','0', '', '',  '12h', '','', '24h'],
         maxScale: 2800 // Triggers the 3T scale
     };
 
     const watchData = {
         points: [100, 95, 85, 65, 45, 35, 30],
-        labels: ['0:00', '', '', '', '', '', '0:15'],
+        labels: ['0:00', '', '', '', '', '', '0:54'],
         maxScale: 100
     };
 
     const likeData = {
         points: [0, 0, 0, 0, 0, 0, 0, 45],
-        labels: ['0:00', '', '', '', '', '', '', '0:15'],
+        labels: ['0:00', '', '', '', '', '', '', '0:54'],
         maxScale: 50
     };
 
@@ -269,7 +269,7 @@ if (watchSectionCanvas) {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
     ctx.fillText('0:00', padLeft + 15, yZero + 6);
-    ctx.fillText('0:15', w - padRight, yZero + 6);
+    ctx.fillText('0:54', w - padRight, yZero + 6);
 
     // --- 3. Draw Data Line (Mimicking the exact drop-off curve) ---
     // Data points roughly matching screenshot (100% drops to ~40% then slowly to ~30%)
@@ -372,18 +372,18 @@ if (watchSectionCanvas) {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.fillText('0:00', padLeft + 15, yZero + 6);
-        ctx.fillText('0:15', w - padRight, yZero + 6);
+        ctx.fillText('0:54', w - padRight, yZero + 6);
 
         // --- 3. Draw Data Line (Flat, slight dip, then huge spike) ---
         const dataPoints = [
-            {x: 0, y: 2},    // Start low
-            {x: 0.2, y: 2},  // Stay flat
-            {x: 0.4, y: 1},  // Tiny dip
-            {x: 0.5, y: 2},  // Tiny recover
-            {x: 0.6, y: 2},  // Flat
-            {x: 0.85, y: 2}, // Flat
-            {x: 0.95, y: 20},// Sharp spike starts
-            {x: 1.0, y: 45}  // Massive spike at end
+            {x: 0, y: 40},   // Start HIGH
+            {x: 0.1, y: 42}, // Stay high
+            {x: 0.25, y: 30},// Little dip
+            {x: 0.4, y: 35}, // Continue decreasing
+            {x: 0.55, y: 25},// Down to 72
+            {x: 0.7, y: 20}, 
+            {x: 0.85, y: 15},
+            {x: 1.0, y: 10}  // Ends at 50% line
         ];
 
         ctx.beginPath();
