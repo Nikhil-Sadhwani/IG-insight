@@ -52,7 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let yMax = 2000;
         let yMid = 1000;
-        if (yMaxScale > 2000) {
+        if (yMaxScale > 6000) {
+            yMax = 7000;
+            yMid = 3500;
+        } else if (yMaxScale > 2000) {
             yMax = 3000;
             yMid = 1500;
         } else {
@@ -133,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Currently set for: 0 at 100px, 12h at 240px, 24h at 350px
                 let x;
                 if (label === '0') x = padLeft + 25; 
-                else if (label === '1h') x = padLeft + 150;
-                else if (label === '2h') x = padLeft + 290;
+                else if (label === '4h') x = padLeft + 150;
+                else if (label === '9h') x = padLeft + 290;
                 else x = padLeft + 0; // Fallback (shouldn't be used)
 
                 // Draw the date
@@ -145,10 +148,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- UPDATED DATA: 3 specific dates ---
     const viewsData = {
-        // We add 2 blank labels between dates to keep the graph smooth, but only show the 3 dates
-        points: [0, 1146, 1300, 1600, 1700, 1832, 2150, 2200, 2301],
-        labels: ['','0', '', '',  '1h', '','', '2h'],
-        maxScale: 2800 // Triggers the 3T scale
+        // Spread out points so it smoothly climbs up to 7000
+        points: [0, 800, 1500, 2200, 3100, 4000, 5200, 6039],
+        labels: ['','0', '', '',  '4h', '','', '9h'],
+        maxScale: 6039 // Triggers the 7T scale
     };
 
     const watchData = {
